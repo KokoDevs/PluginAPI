@@ -1,0 +1,4 @@
+name: KokoAPI
+version: '${version}'
+main: me.kokodevs.kokoapi.KokoAPI
+api-version: 1.19

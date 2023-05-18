@@ -1,0 +1,74 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+group = 'me.kokodevs'
+version = '1.0'
+
+shadowJar {
+    baseName = "KokoAPI"
+    classifier = ''
+    archiveVersion = ''
+    destinationDir = file("$rootDir/output")
+}
+
+publishing {
+    publications {
+        shadow(MavenPublication) { publication ->
+            project.shadow.component(publication)
+        }
+    }
+}
+
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "spigotmc-repo"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+    maven { url = 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation 'com.github.Revxrsal.Lamp:common:3.1.0'
+    implementation 'com.github.Revxrsal.Lamp:bukkit:3.1.0'
+    compileOnly "org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT"
+}
+
+compileJava {
+    options.compilerArgs += ["-parameters"]
+    options.fork = true
+    options.encoding = 'utf-8'
+}
+
+def targetJavaVersion = 17
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
