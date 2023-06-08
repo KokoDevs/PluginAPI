@@ -1,14 +1,6 @@
 package me.kokodevs.kokoapi;
 
-import me.kokodevs.kokoapi.utils.ItemBuilder;
-import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemFlag;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.List;
 
 public final class KokoAPI extends JavaPlugin {
 
@@ -16,7 +8,9 @@ public final class KokoAPI extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
 
-
+        // TODO: add if you need to access the API (better to not access it in a static way).
+        // getServer().getServicesManager().register(KokoAPI.class, this, this, ServicePriority.Highest);
+        // getServer().getServicesManager().getRegistration(KokoAPI.class);
     }
 
     @Override
