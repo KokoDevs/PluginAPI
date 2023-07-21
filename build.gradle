@@ -8,10 +8,10 @@ group = 'me.kokodevs'
 version = '1.0'
 
 shadowJar {
-    baseName = "KokoAPI"
-    classifier = ''
+    archivesBaseName = "KokoAPI"
+    archiveClassifier = ''
     archiveVersion = ''
-    destinationDir = file("$rootDir/output")
+    destinationDirectory = file("$rootDir/output")
 }
 
 publishing {
@@ -34,12 +34,14 @@ repositories {
         url = "https://oss.sonatype.org/content/groups/public/"
     }
     maven { url = 'https://jitpack.io' }
+    maven { url = "https://repo.mattstudios.me/artifactory/public/" }
 }
 
 dependencies {
     implementation 'com.github.Revxrsal.Lamp:common:3.1.0'
     implementation 'com.github.Revxrsal.Lamp:bukkit:3.1.0'
     implementation 'org.jetbrains:annotations:24.0.0'
+    implementation "dev.triumphteam:triumph-gui:3.1.2"
     compileOnly "org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT"
 }
 
